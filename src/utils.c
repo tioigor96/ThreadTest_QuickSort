@@ -14,7 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "../libs/utils.h"
 
-int main(int argc, char **argv) {
-    return 0;
+void printVector(int *a, int from, int to) {
+    for (; from < to; from++)
+        printf("%d ", a + from);
+}
+
+void swap(int *a, int *b) {
+    int aux = *a;
+    *a=*b;
+    *b=aux;
+
 }

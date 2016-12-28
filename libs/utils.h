@@ -15,6 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-int main(int argc, char **argv) {
-    return 0;
-}
+
+#ifndef THREADTEST_QUICKSORT_UTILS_H
+#define THREADTEST_QUICKSORT_UTILS_H
+
+#include <stdio.h>
+
+void printVector(int *a, int from, int to);
+
+void swap(int *a, int *b);
+
+#endif //THREADTEST_QUICKSORT_UTILS_H
