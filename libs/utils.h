@@ -20,9 +20,16 @@
 #define THREADTEST_QUICKSORT_UTILS_H
 
 #include <stdio.h>
+#include <malloc.h>
+#include <stdlib.h>
+#include <time.h>
 
 void printVector(int *a, int from, int to);
 
 void swap(int *a, int *b);
+
+int *randomVector(int dim);
+
+int isOrder(int *a, int from, int to);
 
 #endif //THREADTEST_QUICKSORT_UTILS_H

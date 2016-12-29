@@ -15,6 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "libs/utils.h"
+#include "libs/QuickSort.h"
+
 int main(int argc, char **argv) {
+
+    int *vector = randomVector(20);
+
+    quickSort(vector, 0, 20);
+
+    printf("order: %s\n", isOrder(vector, 0, 20) ? "true" : "false");
+
+    printVector(vector, 0, 20);
+
     return 0;
 }

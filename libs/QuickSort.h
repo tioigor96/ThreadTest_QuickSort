@@ -14,34 +14,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "../libs/utils.h"
 
-void printVector(int *a, int from, int to) {
-    for (; from < to; from++)
-        printf("%d ", a[from]);
-}
+#ifndef THREADTEST_QUICKSORT_QUICKSORT_H
+#define THREADTEST_QUICKSORT_QUICKSORT_H
 
-void swap(int *a, int *b) {
-    int aux = *a;
-    *a=*b;
-    *b=aux;
-}
+#include "utils.h"
 
-int* randomVector(int dim) {
-    int *a=malloc(sizeof(int)*dim);
+/**
+ * Partition function: create an array partitioned "from" to "to" in:
+ * vector{from -> [return value - 1]} < [return value] < vector{[return value + 1] -> to};
+ * Limits: from index included, to index excluded (v = [from ; to))
+ * @param vector
+ * @param from
+ * @param to
+ * @return
+ */
+int partition(int *vector, int from, int to);
 
-    srand(time(NULL));
+/**
+ * Recursive quicksort;
+ * Limits: from index included, to index excluded (v = [from ; to))
+ * @param vector
+ * @param from
+ * @param to
+ */
+int *quickSort(int *vector, int from, int to);
 
-    for(int i=0; i<dim; i++)
-        a[i]=rand()%607;
 
-    return a;
-}
-
-int isOrder(int *a, int from, int to) {
-
-    for(;from<to-1; from++)
-        if(a[from]>a[from+1])
-            return 0;
-    return 1;
-}
+#endif //THREADTEST_QUICKSORT_QUICKSORT_H
