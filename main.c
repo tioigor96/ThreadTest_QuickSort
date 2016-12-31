@@ -17,16 +17,54 @@
 
 #include "libs/utils.h"
 #include "libs/QuickSort.h"
+#include "libs/benchmark.h"
+#include <pthread.h>
+
+struct thread_quick_data {
+    __uint64_t *vector;
+    int start, end;
+};
+
+void compute_sort(struct thread_quick_data *data) {
+    quickSort(data->vector, data->start, data->end);
+}
 
 int main(int argc, char **argv) {
 
-    int *vector = randomVector(20);
+    __uint64_t *vector = randomVector(1000000);
+    __uint64_t delta = granularity();
 
-    quickSort(vector, 0, 20);
+    struct timespec start, end;
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
 
-    printf("order: %s\n", isOrder(vector, 0, 20) ? "true" : "false");
+    //quickSort(vector, 0, __VECTOR_LEN);       //singlethread
 
-    printVector(vector, 0, 20);
+    //multithread
+    pthread_t th1, th2;
+    struct thread_quick_data th1data, th2data;
+
+    th1data.start = 0;
+    th1data.end = partition(vector, 0, __VECTOR_LEN);
+    th1data.vector = vector;
+
+    th2data.start = th1data.end + 1;
+    th2data.end = 20;
+    th2data.vector = vector;
+
+    pthread_create(&th1, NULL, (void *) compute_sort, &th1data);
+    pthread_create(&th2, NULL, (void *) compute_sort, &th2data);
+
+    pthread_join(th1, NULL);
+    pthread_join(th2, NULL);
+
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
+
+    printf("order: %s\n", isOrder(vector, 0, __VECTOR_LEN) ? "true" : "false");
+    printf("time: %"PRId64" + delta %"PRId64"ns\n", end.tv_nsec - start.tv_nsec, delta);
+
+    printFile4Plot(vector);
+
+    //printVector(vector, th1data.end, th1data.end+40);
 
     return 0;
 }

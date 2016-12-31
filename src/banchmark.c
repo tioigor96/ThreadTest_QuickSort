@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Igor 29/12/16.
+ * Copyright (C) 2016 Igor 30/12/16.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,28 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "../libs/benchmark.h"
 
-#ifndef THREADTEST_QUICKSORT_UTILS_H
-#define THREADTEST_QUICKSORT_UTILS_H
+__uint64_t granularity() {
+    struct timespec start, end;
 
-#define __PRIME         982451653
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
 
-#include <stdio.h>
-#include <malloc.h>
-#include <stdlib.h>
-#include <time.h>
-#include <inttypes.h>
+    while (end.tv_nsec == start.tv_nsec)
+        clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
-extern const __uint64_t __VECTOR_LEN;
+    return end.tv_nsec - start.tv_nsec;
+}
 
-void printVector(__uint64_t *a, int from, int to);
 
-void swap(__uint64_t *a, __uint64_t *b);
-
-__uint64_t *randomVector(__uint64_t dim);
-
-int isOrder(__uint64_t *a, int from, int to);
-
-void printFile4Plot(__uint64_t *vector);
-
-#endif //THREADTEST_QUICKSORT_UTILS_H

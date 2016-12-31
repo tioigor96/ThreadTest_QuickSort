@@ -17,7 +17,7 @@
 
 #include "../libs/QuickSort.h"
 
-int partition(int *vector, int from, int to) {
+int partition(__uint64_t *vector, int from, int to) {
     int pivot = from;
 
     for (int i = from; i < to - 1; i++) {
@@ -33,7 +33,7 @@ int partition(int *vector, int from, int to) {
     return pivot;
 }
 
-int *quickSort(int *vector, int from, int to) {
+void *quickSort(__uint64_t *vector, int from, int to) {
     if (from < to) {
         int pivot = partition(vector, from, to);    //pivot is in correct position
         quickSort(vector, from, pivot);             //pivot is the last real position of last element

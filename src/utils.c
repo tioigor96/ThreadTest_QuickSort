@@ -14,34 +14,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "../libs/utils.h"
 
-void printVector(int *a, int from, int to) {
+const __uint64_t __VECTOR_LEN = 524288;
+
+void printVector(__uint64_t *a, int from, int to) {
     for (; from < to; from++)
-        printf("%d ", a[from]);
+        printf("%"PRId64" ", a[from]);
 }
 
-void swap(int *a, int *b) {
-    int aux = *a;
-    *a=*b;
-    *b=aux;
+void swap(__uint64_t *a, __uint64_t *b) {
+    __uint64_t aux = *a;
+    *a = *b;
+    *b = aux;
 }
 
-int* randomVector(int dim) {
-    int *a=malloc(sizeof(int)*dim);
+__uint64_t *randomVector(__uint64_t dim) {
+    __uint64_t *a = malloc(sizeof(__uint64_t) * dim);
 
     srand(time(NULL));
 
-    for(int i=0; i<dim; i++)
-        a[i]=rand()%607;
+    for (__uint64_t i = 0; i < dim; i++)
+        a[i] = rand() % __PRIME;
 
     return a;
 }
 
-int isOrder(int *a, int from, int to) {
+int isOrder(__uint64_t *a, int from, int to) {
 
-    for(;from<to-1; from++)
-        if(a[from]>a[from+1])
+    for (; from < to - 1; from++)
+        if (a[from] > a[from + 1])
             return 0;
     return 1;
+}
+
+void printFile4Plot(__uint64_t *vector) {
+    FILE *fd = fopen("plotThis.txt", "w");
+
+    for (__uint64_t i = 0; i < __VECTOR_LEN; i++) {
+        fprintf(fd, "%"PRId64"\n", vector[i]);
+    }
+
+    fclose(fd);
 }

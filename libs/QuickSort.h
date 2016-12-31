@@ -29,7 +29,7 @@
  * @param to
  * @return
  */
-int partition(int *vector, int from, int to);
+int partition(__uint64_t *vector, int from, int to);
 
 /**
  * Recursive quicksort;
@@ -38,7 +38,7 @@ int partition(int *vector, int from, int to);
  * @param from
  * @param to
  */
-int *quickSort(int *vector, int from, int to);
+void *quickSort(__uint64_t *vector, int from, int to);
 
 
 #endif //THREADTEST_QUICKSORT_QUICKSORT_H
