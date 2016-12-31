@@ -25,12 +25,12 @@ struct thread_quick_data {
     int start, end;
 };
 
-void compute_sort(struct thread_quick_data *data) {
+void *compute_sort(struct thread_quick_data *data) {
     quickSort(data->vector, data->start, data->end);
+    return 0;
 }
 
 int main(int argc, char **argv) {
-
     __uint64_t *vector = randomVector(1000000);
     __uint64_t delta = granularity();
 
@@ -42,20 +42,25 @@ int main(int argc, char **argv) {
     //multithread
     pthread_t th1, th2;
     struct thread_quick_data th1data, th2data;
+    int th1Estat=-1, th2Estat=-1;
 
     th1data.start = 0;
     th1data.end = partition(vector, 0, __VECTOR_LEN);
     th1data.vector = vector;
 
     th2data.start = th1data.end + 1;
-    th2data.end = 20;
+    th2data.end = __VECTOR_LEN;
     th2data.vector = vector;
 
     pthread_create(&th1, NULL, (void *) compute_sort, &th1data);
     pthread_create(&th2, NULL, (void *) compute_sort, &th2data);
 
-    pthread_join(th1, NULL);
-    pthread_join(th2, NULL);
+    pthread_join(th1, (void *) &th1Estat);
+    pthread_join(th2, (void *) &th2Estat);
+
+    printf("pivot: %d\n",th1data.end);
+    printf("th1Estat: %d\n", th1Estat);
+    printf("th2Estat: %d\n", th2Estat);
 
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
 

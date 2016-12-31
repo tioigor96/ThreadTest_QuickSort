@@ -22,6 +22,7 @@ const __uint64_t __VECTOR_LEN = 524288;
 void printVector(__uint64_t *a, int from, int to) {
     for (; from < to; from++)
         printf("%"PRId64" ", a[from]);
+    printf("\n");
 }
 
 void swap(__uint64_t *a, __uint64_t *b) {
