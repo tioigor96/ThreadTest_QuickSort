@@ -31,18 +31,19 @@ void *compute_sort(struct thread_quick_data *data) {
 }
 
 int main(int argc, char **argv) {
-    __uint64_t *vector = randomVector(1000000);
+    __uint64_t *vector = randomVector(__VECTOR_LEN);
     __uint64_t delta = granularity();
 
     struct timespec start, end;
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
 
-    //quickSort(vector, 0, __VECTOR_LEN);       //singlethread
+    //singlethread
+    //quicksortI(vector, 0, __VECTOR_LEN);
 
     //multithread
     pthread_t th1, th2;
     struct thread_quick_data th1data, th2data;
-    int th1Estat=-1, th2Estat=-1;
+    int th1Estat = -1, th2Estat = -1;
 
     th1data.start = 0;
     th1data.end = partition(vector, 0, __VECTOR_LEN);
@@ -53,12 +54,16 @@ int main(int argc, char **argv) {
     th2data.vector = vector;
 
     pthread_create(&th1, NULL, (void *) compute_sort, &th1data);
+    printf("first core lunched\n");
     pthread_create(&th2, NULL, (void *) compute_sort, &th2data);
+    printf("second core lunched\n");
 
     pthread_join(th1, (void *) &th1Estat);
+    printf("first core join\n");
     pthread_join(th2, (void *) &th2Estat);
+    printf("second core join\n");
 
-    printf("pivot: %d\n",th1data.end);
+    printf("pivot: %d\n", th1data.end);
     printf("th1Estat: %d\n", th1Estat);
     printf("th2Estat: %d\n", th2Estat);
 
@@ -67,9 +72,9 @@ int main(int argc, char **argv) {
     printf("order: %s\n", isOrder(vector, 0, __VECTOR_LEN) ? "true" : "false");
     printf("time: %"PRId64" + delta %"PRId64"ns\n", end.tv_nsec - start.tv_nsec, delta);
 
-    printFile4Plot(vector);
+    //printFile4Plot(vector);
 
-    //printVector(vector, th1data.end, th1data.end+40);
+    //printVector(vector, th1data.end, th1data.end + 40);
 
     return 0;
 }

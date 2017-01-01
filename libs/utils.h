@@ -19,8 +19,6 @@
 #ifndef THREADTEST_QUICKSORT_UTILS_H
 #define THREADTEST_QUICKSORT_UTILS_H
 
-#define __PRIME         982451653
-
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
@@ -28,6 +26,7 @@
 #include <inttypes.h>
 
 extern const __uint64_t __VECTOR_LEN;
+extern const __uint64_t __PRIME;
 
 void printVector(__uint64_t *a, int from, int to);
 

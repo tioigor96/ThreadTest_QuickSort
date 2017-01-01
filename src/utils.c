@@ -17,7 +17,8 @@
 
 #include "../libs/utils.h"
 
-const __uint64_t __VECTOR_LEN = 524288;
+const __uint64_t __VECTOR_LEN = 524288*128; //524288
+const __uint64_t __PRIME = 982451653; //982451653
 
 void printVector(__uint64_t *a, int from, int to) {
     for (; from < to; from++)

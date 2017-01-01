@@ -19,6 +19,13 @@
 #define THREADTEST_QUICKSORT_QUICKSORT_H
 
 #include "utils.h"
+#include "dynstack.h"
+
+struct _qs_iter_limits {
+    int from;
+    int to;
+};
+typedef struct _qs_iter_limits qs_limits;
 
 /**
  * Partition function: create an array partitioned "from" to "to" in:
@@ -38,7 +45,9 @@ int partition(__uint64_t *vector, int from, int to);
  * @param from
  * @param to
  */
-void *quickSort(__uint64_t *vector, int from, int to);
+void quickSort(__uint64_t *vector, int from, int to);
+
+void *quicksortI(__uint64_t *vector, int from, int to);
 
 
 #endif //THREADTEST_QUICKSORT_QUICKSORT_H

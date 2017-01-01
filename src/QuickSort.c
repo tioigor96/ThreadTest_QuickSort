@@ -33,10 +33,38 @@ int partition(__uint64_t *vector, int from, int to) {
     return pivot;
 }
 
-void *quickSort(__uint64_t *vector, int from, int to) {
+void quickSort(__uint64_t *vector, int from, int to) {
     if (from < to) {
         int pivot = partition(vector, from, to);    //pivot is in correct position
         quickSort(vector, from, pivot);             //pivot is the last real position of last element
         quickSort(vector, pivot + 1, to);           //pivot + 1 is the first element to order
+    }
+}
+
+void *quicksortI(__uint64_t *vector, int from, int to) {
+    dynstack_t *stack = NULL;
+    qs_limits *limit = malloc(sizeof(qs_limits)), *aux;
+    limit->from = from;
+    limit->to = to;
+
+    stack = push(stack, (void *) limit, sizeof(qs_limits));
+
+    while (stack_dimension(stack) > 0) {
+        limit = (qs_limits *) pop(&stack);
+        if (limit->from < limit->to) {
+
+            int pivot = partition(vector, limit->from, limit->to);
+
+            aux = malloc(sizeof(qs_limits));
+            aux->from = limit->from;
+            aux->to = pivot;
+            stack = push(stack, (void *) aux, sizeof(qs_limits));
+
+            aux = malloc(sizeof(qs_limits));
+            aux->from = pivot + 1;
+            aux->to = limit->to;
+            stack = push(stack, (void *) aux, sizeof(qs_limits));
+        }
+        free(limit);
     }
 }
