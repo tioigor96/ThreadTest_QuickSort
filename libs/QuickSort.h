@@ -36,7 +36,7 @@ typedef struct _qs_iter_limits qs_limits;
  * @param to
  * @return
  */
-int partition(__uint64_t *vector, int from, int to);
+int partition(uint64_t *vector, int from, int to);
 
 /**
  * Recursive quicksort;
@@ -45,9 +45,9 @@ int partition(__uint64_t *vector, int from, int to);
  * @param from
  * @param to
  */
-void quickSort(__uint64_t *vector, int from, int to);
+void quickSort(uint64_t *vector, int from, int to);
 
-void *quicksortI(__uint64_t *vector, int from, int to);
+void *quicksortI(uint64_t *vector, int from, int to);
 
 
 #endif //THREADTEST_QUICKSORT_QUICKSORT_H

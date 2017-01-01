@@ -17,16 +17,21 @@
 
 #include "../libs/benchmark.h"
 
-__uint64_t granularity() {
+
+uint64_t granularity() {
     struct timespec start, end;
 
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &end);
 
     while (end.tv_nsec == start.tv_nsec)
-        clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+        clock_gettime(CLOCK_MONOTONIC, &end);
 
     return end.tv_nsec - start.tv_nsec;
+}
+
+void getTime(struct timespec *var) {
+    clock_gettime(CLOCK_MONOTONIC, var);
 }
 
 

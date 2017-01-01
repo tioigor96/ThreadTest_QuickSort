@@ -17,33 +17,33 @@
 
 #include "../libs/utils.h"
 
-const __uint64_t __VECTOR_LEN = 524288*128; //524288
-const __uint64_t __PRIME = 982451653; //982451653
+const uint64_t __VECTOR_LEN = 524288*128; //524288
+const uint64_t __PRIME = 982451653; //982451653
 
-void printVector(__uint64_t *a, int from, int to) {
+void printVector(uint64_t *a, int from, int to) {
     for (; from < to; from++)
         printf("%"PRId64" ", a[from]);
     printf("\n");
 }
 
-void swap(__uint64_t *a, __uint64_t *b) {
-    __uint64_t aux = *a;
+void swap(uint64_t *a, uint64_t *b) {
+    uint64_t aux = *a;
     *a = *b;
     *b = aux;
 }
 
-__uint64_t *randomVector(__uint64_t dim) {
-    __uint64_t *a = malloc(sizeof(__uint64_t) * dim);
+uint64_t *randomVector(uint64_t dim) {
+    uint64_t *a = malloc(sizeof(uint64_t) * dim);
 
     srand(time(NULL));
 
-    for (__uint64_t i = 0; i < dim; i++)
+    for (uint64_t i = 0; i < dim; i++)
         a[i] = rand() % __PRIME;
 
     return a;
 }
 
-int isOrder(__uint64_t *a, int from, int to) {
+int isOrder(uint64_t *a, int from, int to) {
 
     for (; from < to - 1; from++)
         if (a[from] > a[from + 1])
@@ -51,10 +51,10 @@ int isOrder(__uint64_t *a, int from, int to) {
     return 1;
 }
 
-void printFile4Plot(__uint64_t *vector) {
+void printFile4Plot(uint64_t *vector) {
     FILE *fd = fopen("plotThis.txt", "w");
 
-    for (__uint64_t i = 0; i < __VECTOR_LEN; i++) {
+    for (uint64_t i = 0; i < __VECTOR_LEN; i++) {
         fprintf(fd, "%"PRId64"\n", vector[i]);
     }
 

@@ -25,17 +25,17 @@
 #include <time.h>
 #include <inttypes.h>
 
-extern const __uint64_t __VECTOR_LEN;
-extern const __uint64_t __PRIME;
+extern const uint64_t __VECTOR_LEN;
+extern const uint64_t __PRIME;
 
 void printVector(__uint64_t *a, int from, int to);
 
-void swap(__uint64_t *a, __uint64_t *b);
+void swap(uint64_t *a, uint64_t *b);
 
-__uint64_t *randomVector(__uint64_t dim);
+uint64_t *randomVector(uint64_t dim);
 
-int isOrder(__uint64_t *a, int from, int to);
+int isOrder(uint64_t *a, int from, int to);
 
-void printFile4Plot(__uint64_t *vector);
+void printFile4Plot(uint64_t *vector);
 
 #endif //THREADTEST_QUICKSORT_UTILS_H

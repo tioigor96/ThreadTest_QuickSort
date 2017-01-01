@@ -27,6 +27,8 @@
  * printf("%"PRId64"\n",granularity());
  * @return
  */
-__uint64_t granularity();
+uint64_t granularity();
+
+void getTime(struct timespec *var);
 
 #endif //THREADTEST_QUICKSORT_BENCHMARK_H

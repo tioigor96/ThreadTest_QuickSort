@@ -21,7 +21,7 @@
 #include <pthread.h>
 
 struct thread_quick_data {
-    __uint64_t *vector;
+    uint64_t *vector;
     int start, end;
 };
 
@@ -31,11 +31,11 @@ void *compute_sort(struct thread_quick_data *data) {
 }
 
 int main(int argc, char **argv) {
-    __uint64_t *vector = randomVector(__VECTOR_LEN);
-    __uint64_t delta = granularity();
+    uint64_t *vector = randomVector(__VECTOR_LEN);
+    uint64_t delta = granularity();
 
     struct timespec start, end;
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
+    getTime(&start);
 
     //singlethread
     //quicksortI(vector, 0, __VECTOR_LEN);
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
     printf("th1Estat: %d\n", th1Estat);
     printf("th2Estat: %d\n", th2Estat);
 
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
+    getTime(&end);
 
     printf("order: %s\n", isOrder(vector, 0, __VECTOR_LEN) ? "true" : "false");
     printf("time: %"PRId64" + delta %"PRId64"ns\n", end.tv_nsec - start.tv_nsec, delta);
