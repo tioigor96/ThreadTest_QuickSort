@@ -2,7 +2,7 @@ PROG_NAME = Thread_QuickSort
 CC = gcc 
 CFLAGS = -std=c11
 LIBS = -pthread
-OBJECTS = obj/main.o obj/QuickSort.o obj/benchmark.o obj/dynstack.o obj/utils.o
+OBJECTS = obj/main.o obj/QuickSort.o obj/benchmark.o obj/dynstack.o obj/utils.o obj/nplacestack.o
 MKDR = mkdir
 
 all: $(PROG_NAME)
@@ -24,6 +24,9 @@ obj/benchmark.o: libs/benchmark.h src/benchmark.c
 
 obj/dynstack.o: libs/dynstack.h src/dynstack.c
 	$(CC) -c src/dynstack.c -o $@ $(CFLAGS)
+
+obj/nplacestack.o: libs/nplacestack.h src/nplacestack.c
+	$(CC) -c src/nplacestack.c -o $@ $(CFLAGS)
 
 obj/utils.o: libs/utils.h src/utils.c
 	$(CC) -c src/utils.c -o $@ $(CFLAGS)
