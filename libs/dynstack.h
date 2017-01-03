@@ -38,7 +38,7 @@ typedef struct dynamicStack dynstack_t;
  * @param size
  * @return
  */
-dynstack_t *push(dynstack_t *stack, void *element, size_t size);
+dynstack_t *dynstack_push(dynstack_t *stack, void *element, size_t size);
 
 /**
  * return the dimension of stack
@@ -46,13 +46,13 @@ dynstack_t *push(dynstack_t *stack, void *element, size_t size);
  * @param stack
  * @return
  */
-unsigned int stack_dimension(dynstack_t *stack);
+unsigned int dynstack_dimension(dynstack_t *stack);
 
 /**
  * return the first element of stack, and decrease it.
  * @param stack
  * @return
  */
-void *pop(dynstack_t **stack);
+void *dynstack_pop(dynstack_t **stack);
 
 #endif //THREADTEST_QUICKSORT_DYNSTACK_H

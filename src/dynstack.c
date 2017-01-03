@@ -17,7 +17,7 @@
 
 #include "../libs/dynstack.h"
 
-dynstack_t *push(dynstack_t *stack, void *element, size_t size) {
+dynstack_t *dynstack_push(dynstack_t *stack, void *element, size_t size) {
     if (stack == NULL) {
         stack = (dynstack_t *) malloc(sizeof(dynstack_t));
         stack->pos = 0;
@@ -34,12 +34,12 @@ dynstack_t *push(dynstack_t *stack, void *element, size_t size) {
     return stack;
 }
 
-unsigned int stack_dimension(dynstack_t *stack) {
+unsigned int dynstack_dimension(dynstack_t *stack) {
 
     return stack != NULL ? stack->pos + 1 : 0;
 }
 
-void *pop(dynstack_t **stack) {
+void *dynstack_pop(dynstack_t **stack) {
     if (*stack == NULL) {
         return NULL;
     }
