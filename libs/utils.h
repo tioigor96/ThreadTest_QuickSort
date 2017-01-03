@@ -38,4 +38,6 @@ int isOrder(uint64_t *a, int from, int to);
 
 void printFile4Plot(uint64_t *vector);
 
+unsigned char superiorLog(size_t len, uint64_t dim);
+
 #endif //THREADTEST_QUICKSORT_UTILS_H

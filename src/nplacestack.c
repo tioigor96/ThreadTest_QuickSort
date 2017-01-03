@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../libs/nplaceStack.h"
+#include "../libs/nplacestack.h"
 
 npstack_t *initnpstack(unsigned char len) {
     npstack_t *stack = malloc(sizeof(npstack_t));

@@ -26,7 +26,7 @@ struct thread_quick_data {
 };
 
 void *compute_sort(struct thread_quick_data *data) {
-    quickSort(data->vector, data->start, data->end);
+    iterativeQuicksort_nplace(data->vector, data->start, data->end);
     return 0;
 }
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     getTime(&start);
 
     //singlethread
-    //quicksortI(vector, 0, __VECTOR_LEN);
+    //iterativeQuicksort_nplace(vector, 0, __VECTOR_LEN);
 
     //multithread
     pthread_t th1, th2;

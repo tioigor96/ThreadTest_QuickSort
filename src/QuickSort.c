@@ -33,24 +33,24 @@ int partition(uint64_t *vector, int from, int to) {
     return pivot;
 }
 
-void quickSort(uint64_t *vector, int from, int to) {
+void recursiveQuickSort(uint64_t *vector, int from, int to) {
     if (from < to) {
         int pivot = partition(vector, from, to);    //pivot is in correct position
-        quickSort(vector, from, pivot);             //pivot is the last real position of last element
-        quickSort(vector, pivot + 1, to);           //pivot + 1 is the first element to order
+        recursiveQuickSort(vector, from, pivot);             //pivot is the last real position of last element
+        recursiveQuickSort(vector, pivot + 1, to);           //pivot + 1 is the first element to order
     }
 }
 
-void *quicksortI(uint64_t *vector, int from, int to) {
+void iterativeQuicksort(uint64_t *vector, int from, int to) {
     dynstack_t *stack = NULL;
     qs_limits *limit = malloc(sizeof(qs_limits)), *aux;
     limit->from = from;
     limit->to = to;
 
-    stack = push(stack, (void *) limit, sizeof(qs_limits));
+    stack = dynstack_push(stack, (void *) limit, sizeof(qs_limits));
 
-    while (stack_dimension(stack) > 0) {
-        limit = (qs_limits *) pop(&stack);
+    while (dynstack_dimension(stack) > 0) {
+        limit = (qs_limits *) dynstack_pop(&stack);
         if (limit->from < limit->to) {
 
             int pivot = partition(vector, limit->from, limit->to);
@@ -58,12 +58,40 @@ void *quicksortI(uint64_t *vector, int from, int to) {
             aux = malloc(sizeof(qs_limits));
             aux->from = limit->from;
             aux->to = pivot;
-            stack = push(stack, (void *) aux, sizeof(qs_limits));
+            stack = dynstack_push(stack, (void *) aux, sizeof(qs_limits));
 
             aux = malloc(sizeof(qs_limits));
             aux->from = pivot + 1;
             aux->to = limit->to;
-            stack = push(stack, (void *) aux, sizeof(qs_limits));
+            stack = dynstack_push(stack, (void *) aux, sizeof(qs_limits));
+        }
+        free(limit);
+    }
+}
+
+void iterativeQuicksort_nplace(uint64_t *vector, int from, int to) {
+    npstack_t *stack = initnpstack(superiorLog(sizeof(int), to - from + 1) << 2);
+    qs_limits *limit = malloc(sizeof(qs_limits)), *aux;
+    limit->from = from;
+    limit->to = to;
+
+    npstack_push(stack, (void *) limit, sizeof(qs_limits));
+
+    while (npstack_dimension(stack) > 0) {
+        limit = (qs_limits *) npstack_pop(stack);
+        if (limit->from < limit->to) {
+
+            int pivot = partition(vector, limit->from, limit->to);
+
+            aux = malloc(sizeof(qs_limits));
+            aux->from = limit->from;
+            aux->to = pivot;
+            npstack_push(stack, (void *) aux, sizeof(qs_limits));
+
+            aux = malloc(sizeof(qs_limits));
+            aux->from = pivot + 1;
+            aux->to = limit->to;
+            npstack_push(stack, (void *) aux, sizeof(qs_limits));
         }
         free(limit);
     }

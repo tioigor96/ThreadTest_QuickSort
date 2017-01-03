@@ -20,6 +20,7 @@
 
 #include "utils.h"
 #include "dynstack.h"
+#include "nplacestack.h"
 
 struct _qs_iter_limits {
     int from;
@@ -45,9 +46,26 @@ int partition(uint64_t *vector, int from, int to);
  * @param from
  * @param to
  */
-void quickSort(uint64_t *vector, int from, int to);
+void recursiveQuickSort(uint64_t *vector, int from, int to);
 
-void *quicksortI(uint64_t *vector, int from, int to);
+/**
+ * Iterative quicksort;
+ * Limits: from index included, to index excluded (v = [from ; to))
+ * @param vector
+ * @param from
+ * @param to
+ */
+void iterativeQuicksort(uint64_t *vector, int from, int to);
+
+/**
+ * Iterative quicksort n-place;
+ * Limits: from index included, to index excluded (v = [from ; to))
+ * @param vector
+ * @param from
+ * @param to
+ */
+
+void iterativeQuicksort_nplace(uint64_t *vector, int from, int to);
 
 
 #endif //THREADTEST_QUICKSORT_QUICKSORT_H

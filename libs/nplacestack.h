@@ -8,9 +8,7 @@
 #include <stddef.h>
 #include <malloc.h>
 
-#define __STACK_INCREASE    8
-
-struct voidData{
+struct voidData {
     void *pnt;
     size_t size;
 };

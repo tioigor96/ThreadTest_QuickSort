@@ -17,7 +17,7 @@
 
 #include "../libs/utils.h"
 
-const uint64_t __VECTOR_LEN = 524288*128; //524288
+const uint64_t __VECTOR_LEN = 524288 * 256; //524288 * 128
 const uint64_t __PRIME = 982451653; //982451653
 
 void printVector(uint64_t *a, int from, int to) {
@@ -59,4 +59,15 @@ void printFile4Plot(uint64_t *vector) {
     }
 
     fclose(fd);
+}
+
+unsigned char superiorLog(size_t len, uint64_t dim) {
+    unsigned char log = 0;
+
+    while (dim > 0) {
+        log++;
+        dim >>= 1;
+    }
+
+    return log;
 }
